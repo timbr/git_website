@@ -587,6 +587,8 @@ class="img--radius">
                             .then(function (data) {
                                 if (data.ok) {
                                     form.reset();
+                                    btn.disabled = false;
+                                    btn.textContent = 'Let's Talk';
                                     feedback.classList.add('contact-form__feedback--success');
                                     feedback.textContent = data.message;
                                 } else {
