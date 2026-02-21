@@ -1,0 +1,116 @@
+/* ==========================================================================
+   CTA Button Styles
+   ========================================================================== */
+
+/* Base CTA Button */
+.cta-button {
+    align-items: center;
+    appearance: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: helvetica;
+    font-style: normal;
+    font-weight: 500;
+    justify-content: center;
+    line-height: 1.56;
+    outline: none;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transform: scale(1);
+    transition: transform 0.1s ease-in-out;
+    user-select: none;
+    vertical-align: middle;
+    border-radius: 12px;
+    font-size: 1rem;
+    padding: 0.91rem 1.36rem;
+}
+
+.cta-button:hover {
+    text-decoration: none;
+    transform: scale(1.07);
+}
+
+.cta-button:active {
+    transform: scale(0.93);
+    transition-duration: 0.05s;
+}
+
+/* ==========================================================================
+   Color Variants
+   ========================================================================== */
+
+/* Primary (Yellow) */
+.cta-button--primary {
+    background: #fbc02d;
+    color: #fff;
+}
+
+.cta-button--primary span {
+    color: #fff;
+}
+
+.cta-button--primary:hover,
+.cta-button--primary:focus {
+    background: #800080;
+}
+
+.cta-button--primary:focus-visible:not(:hover):not(:active) {
+    box-shadow: 0 0 0 3px rgba(251, 192, 45, 0.15);
+}
+
+/* Danger (Red) */
+.cta-button--danger {
+    background: #FF3952;
+    color: #fff;
+}
+
+.cta-button--danger span {
+    color: #fff;
+}
+
+.cta-button--danger:hover,
+.cta-button--danger:focus {
+    background: #800080;
+}
+
+.cta-button--danger:focus-visible:not(:hover):not(:active) {
+    box-shadow: 0 0 0 3px rgba(255, 57, 82, 0.15);
+}
+
+/* Secondary/Purple */
+.cta-button--secondary,
+.cta-button--purple {
+    background: #800080;
+    color: #fff;
+}
+
+.cta-button--secondary span,
+.cta-button--purple span {
+    color: #fff;
+}
+
+.cta-button--secondary:hover,
+.cta-button--secondary:focus,
+.cta-button--purple:hover,
+.cta-button--purple:focus {
+    background: rgba(208, 80, 208, 1.0);
+}
+
+.cta-button--secondary:focus-visible:not(:hover):not(:active),
+.cta-button--purple:focus-visible:not(:hover):not(:active) {
+    box-shadow: 0 0 0 3px rgba(128, 0, 128, 0.15);
+}
+
+/* ==========================================================================
+   Size Variants
+   ========================================================================== */
+
+.cta-button--small {
+    font-size: 0.89rem;
+    padding: 0.68rem 1.02rem;
+    border-radius: 10px;
+}

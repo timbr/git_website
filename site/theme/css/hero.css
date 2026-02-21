@@ -1,0 +1,432 @@
+/* ============================================================
+   Hero Section Component Library
+   Supports multiple hero patterns with modifier classes
+   ============================================================ */
+
+/* Base Hero Styles */
+.hero {
+    position: relative;
+    background: #100030;
+    overflow-x: hidden;
+}
+
+/* Hero Pattern: Centered with Background Image
+   Used on: Home page, About page
+   ============================================================ */
+.hero--centered {
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+}
+
+/* Modifier for pages with overlapping header (home page) */
+.hero--centered.hero--overlap {
+    padding-top: 200px;
+}
+
+.hero--centered .hero__content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 1100px;
+    width: 100%;
+}
+
+.hero--centered .hero__title {
+    font-family: Montserrat, sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 2.44rem;
+    line-height: 1.18;
+    margin: 24px 0 30px;
+    color: #fff;
+}
+
+.hero--centered .hero__subtitle {
+    color: #fff;
+    font-family: helvetica, sans-serif;
+    font-size: 1rem;
+    line-height: 1.56;
+    margin: 0 0 50px;
+}
+
+.hero--centered .hero__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Hero Pattern: Two-Column Layout
+   Used on: EVA page, other product pages
+   ============================================================ */
+.hero--two-column {
+    padding: 0;
+}
+
+.hero--two-column .hero__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 50px;
+    box-sizing: border-box;
+}
+
+.hero--two-column .hero__content {
+    display: grid;
+    grid-template-columns: 58.33% 41.67%; /* span7/span5 ratio */
+    gap: 0;
+    align-items: center;
+}
+
+.hero--two-column .hero__text {
+    padding-top: 200px; /* 100px content + 100px for overlapping header */
+    padding-bottom: 96px;
+    padding-right: 30px;
+}
+
+.hero--two-column .hero__title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3.11rem;
+    font-weight: 700;
+    line-height: 1.18;
+    margin: 0 0 40px;
+    text-transform: uppercase;
+}
+
+.hero--two-column .hero__subtitle {
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.33;
+    margin: 0 0 50px;
+}
+
+/* Title color modifier */
+.hero--two-column .hero__title--yellow {
+    color: #fbc02d;
+}
+
+.hero--two-column .hero__title--white {
+    color: #fff;
+}
+
+.hero--two-column .hero__image {
+    padding-top: 200px; /* 100px content + 100px for overlapping header */
+    padding-bottom: 96px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.hero--two-column .hero__image img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    border-radius: 24px;
+    object-fit: cover;
+}
+
+/* ============================================================
+   CTA Button Styles
+   ============================================================ */
+
+.inline-items {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.inline-items--center {
+    justify-content: center;
+}
+
+/* CTA Button styles moved to shared/cta.css */
+
+/* ============================================================
+   Responsive Styles
+   ============================================================ */
+
+/* Tablet */
+@media (max-width: 1139px) {
+    /* Centered hero responsive */
+    .hero--centered .hero__title {
+        font-size: 2rem;
+    }
+
+    /* Two-column hero responsive */
+    .hero--two-column .hero__container {
+        padding: 0 50px;
+    }
+
+    .hero--two-column .hero__content {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .hero--two-column .hero__text {
+        padding-top: 140px; /* Reduced header overlap */
+        padding-bottom: 0;
+        padding-right: 0;
+        text-align: center;
+    }
+
+    .hero--two-column .hero__title {
+        font-size: 2.44rem;
+        margin-bottom: 30px;
+    }
+
+    .hero--two-column .hero__image {
+        padding-top: 48px;
+        padding-bottom: 48px;
+        order: 2;
+    }
+
+    .inline-items--md-center {
+        justify-content: center;
+    }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+    /* Centered hero responsive */
+    .hero--centered {
+        padding: 48px 20px;
+        padding-top: 120px;
+    }
+
+    .hero--centered .hero__title {
+        font-size: 1.56rem;
+        margin-bottom: 20px;
+    }
+
+    .hero--centered .hero__subtitle {
+        margin-bottom: 30px;
+    }
+
+    /* Two-column hero responsive */
+    .hero--two-column .hero__container {
+        padding: 0 20px;
+    }
+
+    .hero--two-column .hero__text {
+        padding-top: 120px;
+        padding-bottom: 0;
+    }
+
+    .hero--two-column .hero__title {
+        font-size: 1.56rem;
+        margin-bottom: 24px;
+    }
+
+    .hero--two-column .hero__image {
+        padding-top: 30px;
+        padding-bottom: 48px;
+    }
+
+    .hero--two-column .hero__image img {
+        border-radius: 16px;
+    }
+
+    .inline-items--sm-center {
+        justify-content: center;
+    }
+}
+
+/* ============================================================
+   Hero Pattern: Blog Post
+   Used on: Blog post pages
+   Full-width background image with dark overlay, tags, title,
+   and infobar (author, read time, date)
+   ============================================================ */
+.hero--blog {
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 50vh;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 160px 20px 96px;
+}
+
+.hero-blog__overlay {
+    background: #222326;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.hero-blog__contents {
+    position: relative;
+    max-width: 1400px;
+    width: 100%;
+    padding: 0 50px;
+    box-sizing: border-box;
+}
+
+/* Tags */
+.hero-blog__tags {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 0.56rem;
+}
+
+.hero-blog__tag {
+    margin-bottom: 0.56rem;
+    margin-inline-end: 0.56rem;
+}
+
+/* Badge styles */
+.badge {
+    display: inline-block;
+    font-family: helvetica, sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.28;
+    text-transform: uppercase;
+    vertical-align: middle;
+    text-decoration: none;
+}
+
+.badge:hover {
+    text-decoration: none;
+}
+
+.badge--lowercase {
+    text-transform: none;
+}
+
+.badge--medium {
+    border-radius: 4px;
+    font-size: 0.6rem;
+    padding: 0.18rem 0.36rem;
+}
+
+.badge--medium.badge--lowercase {
+    font-size: 0.78rem;
+}
+
+.badge--accent {
+    background: #fbc02d;
+    color: #fff;
+}
+
+.badge--accent:hover {
+    color: #fff;
+}
+
+/* Title */
+.hero-blog__title {
+    font-family: Montserrat, sans-serif;
+    font-size: 4rem;
+    font-weight: 600;
+    line-height: 1.11;
+    color: #fff;
+    margin: 0 0 50px;
+}
+
+/* Infobar */
+.blog-infobar {
+    font-size: 0.89rem;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.blog-infobar > * {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 0.56rem;
+}
+
+.blog-infobar a {
+    text-decoration: none;
+}
+
+.blog-infobar a:hover {
+    text-decoration: underline;
+}
+
+.blog-infobar__author:not(:last-child),
+.blog-infobar__time:not(:last-child) {
+    margin-inline-end: 0.83rem;
+    padding-inline-end: calc(0.83rem + 1px);
+    position: relative;
+}
+
+.blog-infobar__author:not(:last-child)::after,
+.blog-infobar__time:not(:last-child)::after {
+    border-radius: 1px;
+    content: "";
+    display: block;
+    height: 0.89rem;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+}
+
+.blog-infobar__date svg,
+.blog-infobar__time svg {
+    margin-inline-end: 0.56rem;
+}
+
+/* Infobar dark theme (used on blog hero) */
+.blog-infobar--dark {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.blog-infobar--dark .blog-infobar__author::after,
+.blog-infobar--dark .blog-infobar__time::after {
+    background-color: #fff;
+}
+
+.blog-infobar--dark a,
+.blog-infobar--dark a:hover {
+    color: #fff;
+}
+
+.blog-infobar--dark .blog-infobar__date svg,
+.blog-infobar--dark .blog-infobar__time svg {
+    color: #fff;
+}
+
+/* Blog hero responsive - Tablet */
+@media (max-width: 1139px) {
+    .hero-blog__title {
+        font-size: 3.11rem;
+    }
+
+    .hero-blog__contents {
+        padding: 0 50px;
+    }
+}
+
+/* Blog hero responsive - Mobile */
+@media (max-width: 767px) {
+    .hero--blog {
+        padding-top: 160px;
+        padding-bottom: 96px;
+    }
+
+    .hero-blog__title {
+        font-size: 2.44rem;
+    }
+
+    .hero-blog__contents {
+        padding: 0 20px;
+    }
+}
