@@ -813,11 +813,7 @@
                             .then(function (r) { return r.json(); })
                             .then(function (data) {
                                 if (data.ok) {
-                                    form.reset();
-                                    btn.disabled = false;
-                                    btn.textContent = 'Let's Talk';
-                                    feedback.classList.add('contact-form__feedback--success');
-                                    feedback.textContent = data.message;
+                                    window.location.href = '/thank-you/';
                                 } else {
                                     feedback.classList.add('contact-form__feedback--error');
                                     feedback.textContent = data.error || 'Something went wrong. Please try again.';
