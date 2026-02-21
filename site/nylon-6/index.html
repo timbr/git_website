@@ -387,8 +387,8 @@
                 </div>
             </div>
             <div class="hero__image">
-                <img src="https://www.naphtha.uk/theme/img/1 (4).webp"
-                     alt="nylon 6 polymer"
+                <img src="https://www.naphtha.uk/theme/img/molecule.webp"
+                     alt="hydrocabon molecule symbol"
                      loading="lazy">
             </div>
         </div>
@@ -442,14 +442,21 @@ class="img--radius">
                 <h4 class="material-card__title">Prime Natural Nylon 6</h4>
                 <p class="material-card__desc">Unfilled, offering excellent toughness and impact strength.</p>
             </div>
-            <div class="material-card material-card--has-desc">
+            <div class="material-card material-card--has-desc material-card--has-desc-html">
                 <h4 class="material-card__title">Glass-Filled Nylon 6 (Prime Natural)</h4>
-                <p class="material-card__desc">15% Glass-Filled – Improved stiffness and dimensional stability. 30% Glass-Filled – Higher strength, reduced thermal expansion, and enhanced heat resistance.</p>
+                <div class="material-card__desc"><ul> <li>15% Glass-Filled – Improved stiffness and dimensional stability.</li> <li>30% Glass-Filled – Higher strength, reduced thermal expansion, and enhanced heat resistance.</li> </ul>
+</div>
             </div>
-            <div class="material-card material-card--has-desc">
+            <div class="material-card material-card--has-desc material-card--has-desc-html">
                 <h4 class="material-card__title">Reprocessed Nylon 6 (Black)</h4>
-                <p class="material-card__desc">Cost-effective alternative for industrial applications. Available unfilled, 15% glass-filled, and 30% glass-filled grades.</p>
+                <div class="material-card__desc"><p>Cost-effective alternative for industrial applications. Available in:</p> <ul> <li>Unfilled – Durable and wear-resistant.</li> <li>15% Glass-Filled – Increased rigidity and load-bearing capacity.</li> <li>30% Glass-Filled – Maximum strength and stiffness for demanding applications.</li> </ul>
+</div>
             </div>
+        </div>
+    </div>
+</section><section class="article-section article-section--light article-section--compact-top">
+    <div class="article-section__container">
+        <div class="article-section__text-block text-center">
         </div>
     </div>
 </section><section id="contact" class="order-section">
@@ -479,7 +486,7 @@ class="img--radius">
             </div>
 
             <div class="order-section__form">
-                <form id="order_form" class="contact-form" action="#" method="post">
+                <form id="order_form" class="contact-form" action="https://www.naphtha.uk/submit/order" method="post">
                     <div class="contact-form__row contact-form__row--two-col">
                         <div class="contact-form__field">
                             <label class="contact-form__label">First Name <span class="contact-form__required">*</span></label>
@@ -513,7 +520,42 @@ class="img--radius">
                     <div class="contact-form__row">
                         <button type="submit" class="contact-form__submit">Request My Order</button>
                     </div>
+                    <div class="contact-form__feedback" aria-live="polite"></div>
                 </form>
+                <script>
+                (function () {
+                    var form = document.getElementById('order_form');
+                    form.addEventListener('submit', function (e) {
+                        e.preventDefault();
+                        var btn = form.querySelector('button[type="submit"]');
+                        var feedback = form.querySelector('.contact-form__feedback');
+                        btn.disabled = true;
+                        btn.textContent = 'Sending\u2026';
+                        feedback.className = 'contact-form__feedback';
+                        feedback.textContent = '';
+                        fetch(form.action, { method: 'POST', body: new FormData(form) })
+                            .then(function (r) { return r.json(); })
+                            .then(function (data) {
+                                if (data.ok) {
+                                    form.reset();
+                                    feedback.classList.add('contact-form__feedback--success');
+                                    feedback.textContent = data.message;
+                                } else {
+                                    feedback.classList.add('contact-form__feedback--error');
+                                    feedback.textContent = data.error || 'Something went wrong. Please try again.';
+                                    btn.disabled = false;
+                                    btn.textContent = 'Request My Order';
+                                }
+                            })
+                            .catch(function () {
+                                feedback.classList.add('contact-form__feedback--error');
+                                feedback.textContent = 'Could not reach the server. Please try again later.';
+                                btn.disabled = false;
+                                btn.textContent = 'Request My Order';
+                            });
+                    });
+                }());
+                </script>
             </div>
         </div>
     </div>

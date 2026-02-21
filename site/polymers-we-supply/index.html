@@ -527,7 +527,7 @@ class="img--radius">
                 </a>
             </div>
             <div class="card-grid__col">
-                <a href="#" class="card-grid__card">
+                <a href="/nylon-66/" class="card-grid__card">
                     <div class="card-grid__body">
                         <h3 class="card-grid__title">Nylon 66 (PA66)</h3>
                         <p>Nylon 66 (PA66) is a high-performance engineering thermoplastic known for its superior strength, rigidity, and heat resistance compared to Nylon 6.</p>
@@ -536,7 +536,7 @@ class="img--radius">
                 </a>
             </div>
             <div class="card-grid__col">
-                <a href="#" class="card-grid__card">
+                <a href="/polymethyl-methacrylate/" class="card-grid__card">
                     <div class="card-grid__body">
                         <h3 class="card-grid__title">PMMA (Polymethyl Methacrylate)</h3>
                         <p>Polymethyl Methacrylate (PMMA), also known as acrylic, is a transparent, rigid thermoplastic known for its excellent optical clarity, weather resistance, and surface hardness.</p>
@@ -545,7 +545,7 @@ class="img--radius">
                 </a>
             </div>
             <div class="card-grid__col">
-                <a href="#" class="card-grid__card">
+                <a href="/thermoplastic-polyurethane-thermoplastic-elastomer/" class="card-grid__card">
                     <div class="card-grid__body">
                         <h3 class="card-grid__title">TPU / TPE</h3>
                         <p>Thermoplastic Polyurethane (TPU) and Thermoplastic Elastomers (TPE) are flexible, rubber-like materials known for their excellent elasticity, impact resistance, and durability.</p>
@@ -676,7 +676,7 @@ class="img--radius">
             </div>
 
             <div class="contact-section__form">
-                <form id="contact_form" class="contact-form" action="#" method="post">
+                <form id="contact_form" class="contact-form" action="https://www.naphtha.uk/submit/contact" method="post">
                     <div class="contact-form__row contact-form__row--two-col">
                         <div class="contact-form__field">
                             <label class="contact-form__label">First Name <span class="contact-form__required">*</span></label>
@@ -710,7 +710,42 @@ class="img--radius">
                     <div class="contact-form__row">
                         <button type="submit" class="contact-form__submit">Let's Talk</button>
                     </div>
+                    <div class="contact-form__feedback" aria-live="polite"></div>
                 </form>
+                <script>
+                (function () {
+                    var form = document.getElementById('contact_form');
+                    form.addEventListener('submit', function (e) {
+                        e.preventDefault();
+                        var btn = form.querySelector('button[type="submit"]');
+                        var feedback = form.querySelector('.contact-form__feedback');
+                        btn.disabled = true;
+                        btn.textContent = 'Sending\u2026';
+                        feedback.className = 'contact-form__feedback';
+                        feedback.textContent = '';
+                        fetch(form.action, { method: 'POST', body: new FormData(form) })
+                            .then(function (r) { return r.json(); })
+                            .then(function (data) {
+                                if (data.ok) {
+                                    form.reset();
+                                    feedback.classList.add('contact-form__feedback--success');
+                                    feedback.textContent = data.message;
+                                } else {
+                                    feedback.classList.add('contact-form__feedback--error');
+                                    feedback.textContent = data.error || 'Something went wrong. Please try again.';
+                                    btn.disabled = false;
+                                    btn.textContent = 'Let's Talk';
+                                }
+                            })
+                            .catch(function () {
+                                feedback.classList.add('contact-form__feedback--error');
+                                feedback.textContent = 'Could not reach the server. Please try again later.';
+                                btn.disabled = false;
+                                btn.textContent = 'Let's Talk';
+                            });
+                    });
+                }());
+                </script>
             </div>
         </div>
     </div>
