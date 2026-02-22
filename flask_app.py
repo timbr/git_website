@@ -285,6 +285,57 @@ def admin():
     return render_template_string(ADMIN_HTML, contacts=contacts, orders=orders)
 
 
+# ── error handlers ────────────────────────────────────────────────────────────
+
+ERROR_HTML = """<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ code }} – Naphtha Plastics</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Helvetica,Arial,sans-serif;background:#fafafa;
+       display:flex;align-items:center;justify-content:center;
+       min-height:100vh;padding:40px 20px;text-align:center}
+  .wrap{max-width:520px}
+  .code{font-size:5rem;font-weight:700;color:#fbc02d;line-height:1;margin-bottom:16px}
+  h1{font-size:1.5rem;font-weight:700;color:#100030;text-transform:uppercase;margin-bottom:16px}
+  p{color:#555;line-height:1.6;margin-bottom:36px}
+  a{display:inline-block;background:#100030;color:#fff;text-decoration:none;
+    padding:12px 28px;border-radius:8px;font-weight:600}
+  a:hover{background:#fbc02d}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="code">{{ code }}</div>
+    <h1>{{ title }}</h1>
+    <p>{{ message }}</p>
+    <a href="/">Back to Home</a>
+  </div>
+</body>
+</html>"""
+
+
+@app.errorhandler(404)
+def not_found(e):
+    html = render_template_string(ERROR_HTML,
+        code=404,
+        title='Page Not Found',
+        message='Sorry, the page you were looking for at this URL was not found.')
+    return html, 404
+
+
+@app.errorhandler(500)
+def server_error(e):
+    html = render_template_string(ERROR_HTML,
+        code=500,
+        title='Server Error',
+        message='Something went wrong on our end. Please try again in a moment.')
+    return html, 500
+
+
 # ── dev entry point ───────────────────────────────────────────────────────────
 
 if __name__ == '__main__':
