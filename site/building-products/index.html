@@ -506,6 +506,7 @@ class="img--radius">
 
             <div class="contact-section__form">
                 <form id="contact_form" class="contact-form" action="https://www.naphtha.uk/submit/contact" method="post">
+                    <input type="hidden" name="page_url" value="">
                     <div class="contact-form__row contact-form__row--two-col">
                         <div class="contact-form__field">
                             <label class="contact-form__label">First Name <span class="contact-form__required">*</span></label>
@@ -553,15 +554,13 @@ class="img--radius">
                         btn.textContent = 'Sending\u2026';
                         feedback.className = 'contact-form__feedback';
                         feedback.textContent = '';
-                        fetch(form.action, { method: 'POST', body: new FormData(form) })
+                        var fd = new FormData(form);
+                        fd.set('page_url', window.location.href);
+                        fetch(form.action, { method: 'POST', body: fd })
                             .then(function (r) { return r.json(); })
                             .then(function (data) {
                                 if (data.ok) {
-                                    form.reset();
-                                    btn.disabled = false;
-                                    btn.textContent = originalLabel;
-                                    feedback.classList.add('contact-form__feedback--success');
-                                    feedback.textContent = data.message;
+                                    window.location.href = '/thank-you/';
                                 } else {
                                     feedback.classList.add('contact-form__feedback--error');
                                     feedback.textContent = data.error || 'Something went wrong. Please try again.';

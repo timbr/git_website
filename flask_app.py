@@ -63,7 +63,8 @@ def init_db():
             lastname    TEXT    NOT NULL,
             email       TEXT    NOT NULL,
             phone       TEXT    NOT NULL,
-            message     TEXT    NOT NULL
+            message     TEXT    NOT NULL,
+            page_url    TEXT
         );
 
         CREATE TABLE IF NOT EXISTS order_submissions (
@@ -74,9 +75,15 @@ def init_db():
             email       TEXT    NOT NULL,
             phone       TEXT    NOT NULL,
             postcode    TEXT,
-            message     TEXT    NOT NULL
+            message     TEXT    NOT NULL,
+            page_url    TEXT
         );
     """)
+    # Migrate existing databases that pre-date the page_url column
+    for table in ('contact_submissions', 'order_submissions'):
+        cols = [row[1] for row in db.execute(f'PRAGMA table_info({table})').fetchall()]
+        if 'page_url' not in cols:
+            db.execute(f'ALTER TABLE {table} ADD COLUMN page_url TEXT')
     db.commit()
     db.close()
 
@@ -117,6 +124,7 @@ def submit_contact():
     email     = data.get('email',     '').strip()
     phone     = data.get('mobilephone', '').strip()
     message   = data.get('message',   '').strip()
+    page_url  = data.get('page_url',  '').strip() or None
 
     if not all([firstname, lastname, email, phone, message]):
         return jsonify({'ok': False, 'error': 'All fields are required.'}), 400
@@ -124,10 +132,10 @@ def submit_contact():
     db = get_db()
     db.execute(
         """INSERT INTO contact_submissions
-           (submitted_at, firstname, lastname, email, phone, message)
-           VALUES (?, ?, ?, ?, ?, ?)""",
+           (submitted_at, firstname, lastname, email, phone, message, page_url)
+           VALUES (?, ?, ?, ?, ?, ?, ?)""",
         (datetime.utcnow().isoformat(sep=' ', timespec='seconds'),
-         firstname, lastname, email, phone, message)
+         firstname, lastname, email, phone, message, page_url)
     )
     db.commit()
 
@@ -144,6 +152,7 @@ def submit_order():
     phone     = data.get('phone',     '').strip()
     postcode  = data.get('postcode',  '').strip()
     message   = data.get('message',   '').strip()
+    page_url  = data.get('page_url',  '').strip() or None
 
     if not all([firstname, lastname, email, phone, message]):
         return jsonify({'ok': False, 'error': 'All fields are required.'}), 400
@@ -151,10 +160,10 @@ def submit_order():
     db = get_db()
     db.execute(
         """INSERT INTO order_submissions
-           (submitted_at, firstname, lastname, email, phone, postcode, message)
-           VALUES (?, ?, ?, ?, ?, ?, ?)""",
+           (submitted_at, firstname, lastname, email, phone, postcode, message, page_url)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
         (datetime.utcnow().isoformat(sep=' ', timespec='seconds'),
-         firstname, lastname, email, phone, postcode or None, message)
+         firstname, lastname, email, phone, postcode or None, message, page_url)
     )
     db.commit()
 
@@ -200,6 +209,7 @@ ADMIN_HTML = """
   th { background: #100030; color: #fff; font-weight: 600; }
   tr:last-child td { border-bottom: none; }
   td.msg { max-width: 400px; white-space: pre-wrap; word-break: break-word; }
+  td.url { max-width: 260px; word-break: break-all; font-size: .85rem; }
   .logout { float: right; background: #FF3952; color: #fff; border: none;
             padding: 8px 18px; border-radius: 4px; cursor: pointer;
             font-size: .9rem; text-decoration: none; }
@@ -210,13 +220,14 @@ ADMIN_HTML = """
 <h2>Contact Enquiries ({{ contacts|length }})</h2>
 {% if contacts %}
 <table>
-  <tr><th>Date</th><th>Name</th><th>Email</th><th>Phone</th><th>Message</th></tr>
+  <tr><th>Date</th><th>Name</th><th>Email</th><th>Phone</th><th>Page</th><th>Message</th></tr>
   {% for r in contacts %}
   <tr>
     <td>{{ r['submitted_at'] }}</td>
     <td>{{ r['firstname'] }} {{ r['lastname'] }}</td>
     <td><a href="mailto:{{ r['email'] }}">{{ r['email'] }}</a></td>
     <td>{{ r['phone'] }}</td>
+    <td class="url">{% if r['page_url'] %}<a href="{{ r['page_url'] }}" target="_blank" rel="noopener">{{ r['page_url'] }}</a>{% else %}–{% endif %}</td>
     <td class="msg">{{ r['message'] }}</td>
   </tr>
   {% endfor %}
@@ -228,7 +239,7 @@ ADMIN_HTML = """
 <h2>Order Requests ({{ orders|length }})</h2>
 {% if orders %}
 <table>
-  <tr><th>Date</th><th>Name</th><th>Email</th><th>Phone</th><th>Postcode</th><th>Order Request</th></tr>
+  <tr><th>Date</th><th>Name</th><th>Email</th><th>Phone</th><th>Postcode</th><th>Page</th><th>Order Request</th></tr>
   {% for r in orders %}
   <tr>
     <td>{{ r['submitted_at'] }}</td>
@@ -236,6 +247,7 @@ ADMIN_HTML = """
     <td><a href="mailto:{{ r['email'] }}">{{ r['email'] }}</a></td>
     <td>{{ r['phone'] }}</td>
     <td>{{ r['postcode'] or '–' }}</td>
+    <td class="url">{% if r['page_url'] %}<a href="{{ r['page_url'] }}" target="_blank" rel="noopener">{{ r['page_url'] }}</a>{% else %}–{% endif %}</td>
     <td class="msg">{{ r['message'] }}</td>
   </tr>
   {% endfor %}
