@@ -414,7 +414,7 @@ a:hover {
     color: hsla(0, 0%, 100%, .8);
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     position: relative;
     transition: .2s ease-in-out;
     box-shadow: 0 16px 32px rgba(34, 35, 38, .05), 0 8px 16px rgba(34, 35, 38, .05);
@@ -436,11 +436,13 @@ a:hover {
 
 .card-grid__body {
     max-width: 300px;
+    width: 100%;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     flex: 1;
+    text-align: center;
 }
 
 .card-grid__title {
@@ -2680,6 +2682,7 @@ a:hover {
     color: #100030;
     margin: 0;
     text-decoration: none;
+    width: 100%;
 }
 
 .material-card--has-desc {
@@ -3312,6 +3315,126 @@ a:hover {
 }
 
 /* ──────────────────────────────────────────────
+   Blog Toolbar / Topics Dropdown
+   ────────────────────────────────────────────── */
+
+.blog-toolbar {
+    background: #f5f5f5;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 16px 20px;
+}
+
+.blog-toolbar__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.blog-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.blog-dropdown__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #fbc02d;
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 20px;
+    font-family: Montserrat, sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.blog-dropdown__btn:hover {
+    background: #100030;
+}
+
+.blog-dropdown__arrow {
+    flex-shrink: 0;
+    transition: transform 0.2s;
+}
+
+.blog-dropdown__btn[aria-expanded="true"] .blog-dropdown__arrow {
+    transform: rotate(180deg);
+}
+
+.blog-dropdown__list {
+    display: none;
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    min-width: 220px;
+    max-height: 320px;
+    overflow-y: auto;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    list-style: none;
+    margin: 0;
+    padding: 6px 0;
+    z-index: 100;
+}
+
+/* Horizontal rule after the "All Topics" item (first li) */
+.blog-dropdown__list li:first-child {
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 6px;
+    padding-bottom: 6px;
+}
+
+.blog-dropdown__list--open {
+    display: block;
+}
+
+.blog-dropdown__option {
+    display: block;
+    padding: 10px 18px;
+    color: #100030;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background 0.15s;
+}
+
+.blog-dropdown__option:hover {
+    background: #f5f5f5;
+    color: #100030;
+    text-decoration: none;
+}
+
+.blog-dropdown__option--active {
+    font-weight: 700;
+    color: #fbc02d;
+}
+
+@media (max-width: 767px) {
+    .blog-toolbar__topics {
+        width: 100%;
+    }
+
+    .blog-dropdown {
+        width: 100%;
+    }
+
+    .blog-dropdown__btn {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .blog-dropdown__list {
+        width: 100%;
+        left: 0;
+        right: 0;
+        min-width: 0;
+    }
+}
+
+/* ──────────────────────────────────────────────
    Blog Listing
    ────────────────────────────────────────────── */
 
@@ -3505,5 +3628,58 @@ a:hover {
 
     .blog-listing__post {
         padding: 30px 0;
+    }
+}
+
+/* ──────────────────────────────────────────────
+   Error Pages (404 etc.)
+   ────────────────────────────────────────────── */
+
+.error-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    padding: 80px 20px;
+    text-align: center;
+    background: #fafafa;
+}
+
+.error-page__container {
+    max-width: 560px;
+}
+
+.error-page__code {
+    font-family: Montserrat, sans-serif;
+    font-size: 6rem;
+    font-weight: 700;
+    color: #fbc02d;
+    line-height: 1;
+    margin: 0 0 16px;
+}
+
+.error-page__heading {
+    font-family: Montserrat, sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #100030;
+    margin: 0 0 16px;
+    text-transform: uppercase;
+}
+
+.error-page__message {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+    margin: 0 0 40px;
+}
+
+@media (max-width: 767px) {
+    .error-page__code {
+        font-size: 4rem;
+    }
+
+    .error-page__heading {
+        font-size: 1.3rem;
     }
 }
