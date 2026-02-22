@@ -84,6 +84,7 @@
     <link rel="stylesheet" href="https://www.naphtha.uk/theme/css/hero.css">
     <link rel="stylesheet" href="https://www.naphtha.uk/theme/css/article.css">
     <link rel="stylesheet" href="https://www.naphtha.uk/theme/css/footer.css">
+<link rel="preload" as="image" href="https://www.naphtha.uk/theme/img/Naphtha Banner.webp">
 </head>
 <body>
 
@@ -442,6 +443,7 @@
                         e.preventDefault();
                         var btn = form.querySelector('button[type="submit"]');
                         var feedback = form.querySelector('.contact-form__feedback');
+                        var originalLabel = btn.textContent;
                         btn.disabled = true;
                         btn.textContent = 'Sending\u2026';
                         feedback.className = 'contact-form__feedback';
@@ -452,21 +454,21 @@
                                 if (data.ok) {
                                     form.reset();
                                     btn.disabled = false;
-                                    btn.textContent = 'Make An Enquiry';
+                                    btn.textContent = originalLabel;
                                     feedback.classList.add('contact-form__feedback--success');
                                     feedback.textContent = data.message;
                                 } else {
                                     feedback.classList.add('contact-form__feedback--error');
                                     feedback.textContent = data.error || 'Something went wrong. Please try again.';
                                     btn.disabled = false;
-                                    btn.textContent = 'Make An Enquiry';
+                                    btn.textContent = originalLabel;
                                 }
                             })
                             .catch(function () {
                                 feedback.classList.add('contact-form__feedback--error');
                                 feedback.textContent = 'Could not reach the server. Please try again later.';
                                 btn.disabled = false;
-                                btn.textContent = 'Make An Enquiry';
+                                btn.textContent = originalLabel;
                             });
                     });
                 }());
@@ -537,7 +539,7 @@
     </div>
 </footer>
 <!-- Scripts -->
-<script src="https://www.naphtha.uk/theme/js/header.js"></script>
+<script src="https://www.naphtha.uk/theme/js/header.js" defer></script>
 
 </body>
 </html>

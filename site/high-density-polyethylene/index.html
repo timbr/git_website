@@ -389,7 +389,7 @@
             <div class="hero__image">
                 <img src="https://www.naphtha.uk/theme/img/molecule.webp"
                      alt="hydrocabon molecule symbol"
-                     loading="lazy">
+                     fetchpriority="high">
             </div>
         </div>
     </div>
@@ -525,6 +525,7 @@ class="img--radius">
                         e.preventDefault();
                         var btn = form.querySelector('button[type="submit"]');
                         var feedback = form.querySelector('.contact-form__feedback');
+                        var originalLabel = btn.textContent;
                         btn.disabled = true;
                         btn.textContent = 'Sending\u2026';
                         feedback.className = 'contact-form__feedback';
@@ -535,21 +536,21 @@ class="img--radius">
                                 if (data.ok) {
                                     form.reset();
                                     btn.disabled = false;
-                                    btn.textContent = 'Request My Order';
+                                    btn.textContent = originalLabel;
                                     feedback.classList.add('contact-form__feedback--success');
                                     feedback.textContent = data.message;
                                 } else {
                                     feedback.classList.add('contact-form__feedback--error');
                                     feedback.textContent = data.error || 'Something went wrong. Please try again.';
                                     btn.disabled = false;
-                                    btn.textContent = 'Request My Order';
+                                    btn.textContent = originalLabel;
                                 }
                             })
                             .catch(function () {
                                 feedback.classList.add('contact-form__feedback--error');
                                 feedback.textContent = 'Could not reach the server. Please try again later.';
                                 btn.disabled = false;
-                                btn.textContent = 'Request My Order';
+                                btn.textContent = originalLabel;
                             });
                     });
                 }());
@@ -620,7 +621,7 @@ class="img--radius">
     </div>
 </footer>
 <!-- Scripts -->
-<script src="https://www.naphtha.uk/theme/js/header.js"></script>
+<script src="https://www.naphtha.uk/theme/js/header.js" defer></script>
 
 </body>
 </html>

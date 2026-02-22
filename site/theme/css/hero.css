@@ -199,7 +199,11 @@
     /* Centered hero responsive */
     .hero--centered {
         padding: 48px 20px;
-        padding-top: 120px;
+    }
+
+    /* On mobile the top bar is hidden, so the header is ~70px tall */
+    .hero--centered.hero--overlap {
+        padding-top: 90px;
     }
 
     .hero--centered .hero__title {
@@ -217,7 +221,7 @@
     }
 
     .hero--two-column .hero__text {
-        padding-top: 120px;
+        padding-top: 90px;
         padding-bottom: 0;
     }
 
