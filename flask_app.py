@@ -7,14 +7,25 @@ password-protected admin view.
 
 PythonAnywhere setup
 --------------------
-Point your WSGI file at this module.  Set the three environment
-variables below in the PythonAnywhere "Environment variables" panel
-(or in a .env file you load manually):
+Point your WSGI file at this module.  The three environment variables
+below must be set in your PythonAnywhere WSGI configuration file.
 
-    FLASK_SECRET_KEY   – any long random string
+On PythonAnywhere, open the Web tab → click the link to your WSGI
+configuration file (something like
+/var/www/yourusername_pythonanywhere_com_wsgi.py).
+
+Add these lines near the top, BEFORE the line that imports/loads the app:
+
+    import os
+    os.environ['FLASK_SECRET_KEY'] = 'your-long-random-secret'
+    os.environ['ADMIN_PASSWORD']   = 'your-admin-password'
+    os.environ['ALLOWED_ORIGIN']   = 'https://www.naphtha.uk'
+
+Variables:
+    FLASK_SECRET_KEY   – any long random string (used to sign sessions)
     ADMIN_PASSWORD     – password for /admin
     ALLOWED_ORIGIN     – full origin of the static site, e.g.
-                         https://timbr.pythonanywhere.com
+                         https://www.naphtha.uk
                          (used for CORS so the static pages can POST here)
 """
 

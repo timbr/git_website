@@ -6,9 +6,9 @@
     <title>Plastic Extrusions Suppliers | Quality Plastic Extrusion Manufacturers - Naphtha Plastics Ltd</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="https://www.naphtha.uk/theme/img/favicon.webp">
-    <link rel="shortcut icon" href="https://www.naphtha.uk/theme/img/favicon.webp">
-    <link rel="apple-touch-icon" href="https://www.naphtha.uk/theme/img/favicon.webp">
+    <link rel="icon" type="image/png" href="/theme/img/favicon.webp">
+    <link rel="shortcut icon" href="/theme/img/favicon.webp">
+    <link rel="apple-touch-icon" href="/theme/img/favicon.webp">
 
     <!-- SEO Meta Tags -->
     <meta name="description" content="Polymer supplier for plastic extrusion manufacturers. PP, HDPE, LDPE, PVC, and speciality grades for profiles, pipes, sheet, and film. Consistent quality, reliable supply.">
@@ -79,12 +79,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="https://www.naphtha.uk/theme/css/header.css">
-    <link rel="stylesheet" href="https://www.naphtha.uk/theme/css/cta.css">
-    <link rel="stylesheet" href="https://www.naphtha.uk/theme/css/hero.css">
-    <link rel="stylesheet" href="https://www.naphtha.uk/theme/css/article.css">
-    <link rel="stylesheet" href="https://www.naphtha.uk/theme/css/footer.css">
-<link rel="preload" as="image" href="https://www.naphtha.uk/theme/img/Naphtha Banner.webp">
+    <link rel="stylesheet" href="/theme/css/header.css">
+    <link rel="stylesheet" href="/theme/css/cta.css">
+    <link rel="stylesheet" href="/theme/css/hero.css">
+    <link rel="stylesheet" href="/theme/css/article.css">
+    <link rel="stylesheet" href="/theme/css/footer.css">
+<link rel="preload" as="image" href="/theme/img/Naphtha Banner.webp">
 
 </head>
 <body>
@@ -119,8 +119,8 @@
                 <div class="header__center container">
                     <div class="row items-center">
                         <div class="col s3 md-s3 sm-s4">
-                            <a href="https://www.naphtha.uk/" class="header__logo">
-                                <img src="https://www.naphtha.uk/theme/img/Naphtha Plastics Logo.png"
+                            <a href="/" class="header__logo">
+                                <img src="/theme/img/Naphtha Plastics Logo.png"
                                      alt="Naphtha Plastics Logo"
                                      width="1129" height="296">
                             </a>
@@ -379,7 +379,7 @@
     </div>
 </header>
 <main id="main-content">
-<section class="hero hero--centered hero--overlap" style="background-image: url('https://www.naphtha.uk/theme/img/Naphtha Banner.webp');">
+<section class="hero hero--centered hero--overlap" style="background-image: url('/theme/img/Naphtha Banner.webp');">
     <div class="hero__content">
         <h1 class="hero__title">Trusted Plastic Extrusions Suppliers</h1>
         <div class="hero__buttons">
@@ -398,7 +398,7 @@
                 </div>
             </div>
             <div class="article-section__media">
-                <img src="https://www.naphtha.uk/theme/img/Plastic Extrusions.webp"
+                <img src="/theme/img/Plastic Extrusions.webp"
                      alt="plastic extrusions"
                      loading="lazy"
 class="img--radius">
@@ -416,7 +416,7 @@ class="img--radius">
 </p>
             </div>
             <div class="article-section__media">
-                <img src="https://www.naphtha.uk/theme/img/Extruded Sheet.webp"
+                <img src="/theme/img/Extruded Sheet.webp"
                      alt="Extruded Plastic Sheets"
                      loading="lazy"
 class="img--radius">
@@ -427,7 +427,7 @@ class="img--radius">
     <div class="article-section__container">
         <div class="article-section__grid">
             <div class="article-section__media">
-                <img src="https://www.naphtha.uk/theme/img/pile-of-plastic-pipes.webp"
+                <img src="/theme/img/pile-of-plastic-pipes.webp"
                      alt="Plastic Pipe"
 class="img--radius">
             </div>
@@ -527,7 +527,7 @@ class="img--radius">
 
                 <div class="contact-box">
                     <div class="contact-box__icon">
-                        <img src="https://www.naphtha.uk/theme/img/Location Marker.svg" alt="Location icon" width="32" height="32" loading="lazy">
+                        <img src="/theme/img/Location Marker.svg" alt="Location icon" width="32" height="32" loading="lazy">
                     </div>
                     <div class="contact-box__text">
                         <p>Woodhill Works<br>Woodhill Street<br>Bury<br>Lancashire<br>BL8 1AT</p>
@@ -536,7 +536,7 @@ class="img--radius">
             </div>
 
             <div class="contact-section__form">
-                <form id="contact_form" class="contact-form" action="https://www.naphtha.uk/submit/contact" method="post">
+                <form id="contact_form" class="contact-form" action="#" method="post">
                     <input type="hidden" name="page_url" value="">
                     <div class="contact-form__row contact-form__row--two-col">
                         <div class="contact-form__field">
@@ -573,41 +573,6 @@ class="img--radius">
                     </div>
                     <div class="contact-form__feedback" aria-live="polite"></div>
                 </form>
-                <script>
-                (function () {
-                    var form = document.getElementById('contact_form');
-                    form.addEventListener('submit', function (e) {
-                        e.preventDefault();
-                        var btn = form.querySelector('button[type="submit"]');
-                        var feedback = form.querySelector('.contact-form__feedback');
-                        var originalLabel = btn.textContent;
-                        btn.disabled = true;
-                        btn.textContent = 'Sending\u2026';
-                        feedback.className = 'contact-form__feedback';
-                        feedback.textContent = '';
-                        var fd = new FormData(form);
-                        fd.set('page_url', window.location.href);
-                        fetch(form.action, { method: 'POST', body: fd })
-                            .then(function (r) { return r.json(); })
-                            .then(function (data) {
-                                if (data.ok) {
-                                    window.location.href = '/thank-you/';
-                                } else {
-                                    feedback.classList.add('contact-form__feedback--error');
-                                    feedback.textContent = data.error || 'Something went wrong. Please try again.';
-                                    btn.disabled = false;
-                                    btn.textContent = originalLabel;
-                                }
-                            })
-                            .catch(function () {
-                                feedback.classList.add('contact-form__feedback--error');
-                                feedback.textContent = 'Could not reach the server. Please try again later.';
-                                btn.disabled = false;
-                                btn.textContent = originalLabel;
-                            });
-                    });
-                }());
-                </script>
             </div>
         </div>
     </div>
@@ -617,8 +582,8 @@ class="img--radius">
     <div class="footer__main">
         <div class="footer__container">
             <div class="footer__about">
-                <a href="https://www.naphtha.uk/" rel="noopener">
-                    <img src="https://www.naphtha.uk/theme/img/Naphtha Plastics Logo.png" width="1129" height="296" loading="lazy" alt="Naphtha Plastics Logo" class="footer__logo">
+                <a href="/" rel="noopener">
+                    <img src="/theme/img/Naphtha Plastics Logo.png" width="1129" height="296" loading="lazy" alt="Naphtha Plastics Logo" class="footer__logo">
                 </a>
                 <div class="footer__icons">
                     <a href="tel:+441617639886" class="footer__icon" aria-label="Phone">
@@ -674,7 +639,7 @@ class="img--radius">
     </div>
 </footer>
 <!-- Scripts -->
-<script src="https://www.naphtha.uk/theme/js/header.js" defer></script>
+<script src="/theme/js/header.js" defer></script>
 
 </body>
 </html>
