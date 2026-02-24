@@ -43,16 +43,19 @@ DB_PATH = os.path.join(os.path.dirname(__file__), 'submissions.db')
 # Example:
 #   'old-page-name/': 'new-page-name/',
 REDIRECTS = {
-    # 'old-slug/': 'new-slug/',
-    'polymers-we-supply': 'blog',
+    # Example:
+    # 'old-page-name/': 'new-page-name/',
 }
 
 
 @app.route('/<path:old_path>')
 def legacy_redirect(old_path):
-    target = REDIRECTS.get(old_path) or REDIRECTS.get(old_path + '/')
+    # Normalise: strip trailing slash so keys can be written either way
+    key = old_path.rstrip('/')
+    target = REDIRECTS.get(key) or REDIRECTS.get(key + '/')
     if target:
-        return redirect('/' + target, code=301)
+        # Ensure target always has a trailing slash
+        return redirect('/' + target.rstrip('/') + '/', code=301)
     return app.make_response(('', 404))
 
 
