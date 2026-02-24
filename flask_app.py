@@ -37,6 +37,25 @@ ALLOWED_ORIGIN  = os.environ.get('ALLOWED_ORIGIN',  '*')
 DB_PATH = os.path.join(os.path.dirname(__file__), 'submissions.db')
 
 
+# ── 301 redirects ─────────────────────────────────────────────────────────────
+# Add old-slug → new-slug mappings here whenever a page URL changes.
+# Paths are relative to the site root (no leading slash needed on the key).
+# Example:
+#   'old-page-name/': 'new-page-name/',
+REDIRECTS = {
+    # 'old-slug/': 'new-slug/',
+    'polymers-we-supply': 'blog',
+}
+
+
+@app.route('/<path:old_path>')
+def legacy_redirect(old_path):
+    target = REDIRECTS.get(old_path) or REDIRECTS.get(old_path + '/')
+    if target:
+        return redirect('/' + target, code=301)
+    return app.make_response(('', 404))
+
+
 # ── database helpers ─────────────────────────────────────────────────────────
 
 def get_db():
