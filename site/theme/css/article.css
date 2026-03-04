@@ -1060,7 +1060,14 @@ a:hover {
 
 .industries-card {
     flex: 1;
-    text-align: left;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.industries-card .cta-button {
+    margin-top: auto;
+    align-self: center;
 }
 
 .industries-card__image {
